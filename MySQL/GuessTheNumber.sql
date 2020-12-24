@@ -1,0 +1,19 @@
+DROP DATABASE IF EXISTS GuessTheNumber	;
+CREATE DATABASE GuessTheNumber;
+
+USE GuessTheNumber;
+
+CREATE TABLE Game( 
+GameId INT PRIMARY KEY AUTO_INCREMENT, 
+FourDigitNumber CHAR(4) NOT NULL, 
+StatusOfGame VARCHAR(26) NOT NULL 
+);
+
+CREATE TABLE `Round` (
+RoundId INT PRIMARY KEY AUTO_INCREMENT,
+GameId  INT,
+TimeStampOfRound datetime NOT NULL, 
+Guess CHAR(4) NOT NULL,
+Result VARCHAR(10) NOT NULL, 
+FOREIGN KEY(gameId) REFERENCES Game(gameId)
+); 
