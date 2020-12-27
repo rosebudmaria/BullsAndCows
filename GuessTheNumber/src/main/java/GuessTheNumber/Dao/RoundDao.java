@@ -1,24 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GuessTheNumber.Dao;
+package com.mycompany.guessthenumber.data;
 
-import GuessTheNumber.dto.Round;
+import com.mycompany.guessthenumber.models.Round;
 import java.util.List;
 
 /**
  *
- * @author shana
+ * @author rosalindapowell0608
  */
 public interface RoundDao {
-    
-    public Round AddRound (Round newRound);
-    
-    public List<Round> GetRoundByTime (int gameId);
-    
-    public void DeleteRoundById(int roundId);
-    
+   public Round add(Round newRound);
+
+   
+   public List<Round> getAll(int GameId);
+
+   
+   public void deleteRoundId(int RoundId);
+   
+   
     
 }
