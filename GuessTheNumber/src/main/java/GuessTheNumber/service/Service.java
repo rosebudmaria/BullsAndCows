@@ -19,6 +19,8 @@ public interface Service {
     
     public Round Guess (Round Round) throws NoGameException;
     
+    public List<Round> getRoundByTime (int gameId) throws NoGameException;
+    
     public List<Game> GetListOfGames() throws NoGameException;
     
     public Game GetGameById (int gameId) throws NoGameException;
