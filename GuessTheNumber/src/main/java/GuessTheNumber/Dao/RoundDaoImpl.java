@@ -51,7 +51,7 @@ public class RoundImplDao implements RoundDao {
                 + " WHERE GameId = ? "
                 + " ORDER BY TimeStampOfRound ;";
         try {
-            ListOfRounds = jdbcTemplate.query(sql, new RowMapper(), GameId);
+            ListOfRounds = jdbcTemplate.query(sql, new RoundMapper(), GameId);
              
         } catch(Exception ex) {
             System.out.println(ex.getMessage());
