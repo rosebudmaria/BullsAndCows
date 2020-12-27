@@ -12,15 +12,19 @@ import java.util.Objects;
 public class Game {   
     
     private int GameId;
-    private char FourDigitNumber;
+    private String FourDigitNumber;
     private String StatusOfGame ; 
+
+    public Game(int aInt, String string, String string0) {
+     this.GameId= GameId;
+     this.FourDigitNumber= FourDigitNumber;
+     this.StatusOfGame= StatusOfGame;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + this.GameId;
-        hash = 29 * hash + this.FourDigitNumber;
-        hash = 29 * hash + Objects.hashCode(this.StatusOfGame);
+        int hash = 5;
+        hash = 31 * hash + this.GameId;
         return hash;
     }
 
@@ -39,12 +43,6 @@ public class Game {
         if (this.GameId != other.GameId) {
             return false;
         }
-        if (this.FourDigitNumber != other.FourDigitNumber) {
-            return false;
-        }
-        if (!Objects.equals(this.StatusOfGame, other.StatusOfGame)) {
-            return false;
-        }
         return true;
     }
 
@@ -56,11 +54,11 @@ public class Game {
         this.GameId = GameId;
     }
 
-    public char getFourDigitNumber() {
+    public String getFourDigitNumber() {
         return FourDigitNumber;
     }
 
-    public void setFourDigitNumber(char FourDigitNumber) {
+    public void setFourDigitNumber(String FourDigitNumber) {
         this.FourDigitNumber = FourDigitNumber;
     }
 
@@ -71,7 +69,10 @@ public class Game {
     public void setStatusOfGame(String StatusOfGame) {
         this.StatusOfGame = StatusOfGame;
     }
-    
 
+   
+
+
+  
 
 }
