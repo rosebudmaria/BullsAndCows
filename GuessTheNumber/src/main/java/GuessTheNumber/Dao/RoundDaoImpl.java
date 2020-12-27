@@ -1,30 +1,83 @@
+package com.mycompany.guessthenumber.data;
 
-
-package GuessTheNumber.Dao;
-
-import GuessTheNumber.dto.Round;
+import com.mycompany.guessthenumber.models.Round;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Shantoria Taylor  ,  Dec 26, 2020  ,  1:20:51 AM
-
+ * @author rosalindapowell0608
  */
-public class RoundDaoImpl implements RoundDao{
 
-    @Override
-    public Round AddRound(Round newRound) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+@Repository
+public class RoundImplDao implements RoundDao {
+    
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public RoundImplDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<Round> GetRoundByTime(int gameId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Transactional
+    public Round add(Round newRound) {
+        
+        final String sql = "INSERT INTO Round(Guess, Result, TimeStampOfRound, GameId) " 
+                + "VALUES(?, ?, ?, ?);";
+        
+        try {
+            jdbcTemplate.update(sql, newRound.getGuess(), newRound.getResult(), 
+                    newRound.getTimeStampOfRound(), newRound.getGameId());
+        } catch(Exception ex) {
+            return null;
+        }
+        int newId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        newRound.setRoundId(newId);
+        
+        return newRound;
     }
 
     @Override
-    public void DeleteRoundById(int roundId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Round> getAll(int GameId) {
+        List<Round> ListOfRounds = null;
+        final String sql = "SELECT * FROM Round " 
+                + " WHERE GameId = ? "
+                + " ORDER BY TimeStampOfRound ;";
+        try {
+            ListOfRounds = jdbcTemplate.query(sql, new RowMapper(), GameId);
+             
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return ListOfRounds;
     }
 
+    @Override
+    public void deleteRoundId(int RoundId) {
+        final String sql = "DELETE * " 
+                + "FROM Round "
+                + "WHERE RoundId = ?;";
+        jdbcTemplate.update(sql, RoundId);
+    }
+    
+    public static final class RoundMapper implements RowMapper<Round> {
+        
+        @Override
+        public Round mapRow(ResultSet rs, int i) throws SQLException {
+            Round round = new Round(rs.getInt("RoundId"), rs.getString("Guess"), 
+            rs.getString("Result"), 
+            rs.getTimestamp("TimeStampOfRound").toLocalDateTime(), 
+            rs.getInt("GameId"));
+            return round;
+        }
+
+    }
 }
