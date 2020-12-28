@@ -1,6 +1,6 @@
-package com.mycompany.guessthenumber.data;
+ackage GuessTheNumber.Dao;
 
-import com.mycompany.guessthenumber.models.Round;
+import GuessTheNumber.dto.Round;
 import java.util.List;
 
 /**
