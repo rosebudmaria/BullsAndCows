@@ -54,22 +54,22 @@ public class ServiceImpl implements Service {
     
     
     @Override
-    public Round Guess(Round Round) throws NoGameException {
+    public Round Guess(Round Round) throws NoGameException, InvalidUserInput {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Round> getRoundByTime(int gameId) throws NoGameException {
+    public List<Round> getRoundByTime(int gameId) throws NoGameException, InvalidUserInput {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Game> GetListOfGames() throws NoGameException {
+    public List<Game> GetListOfGames() throws NoGameException, InvalidUserInput {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Game GetGameById(int gameId) throws NoGameException {
+    public Game GetGameById(int gameId) throws NoGameException, InvalidUserInput {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

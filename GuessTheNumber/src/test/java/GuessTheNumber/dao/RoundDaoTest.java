@@ -22,6 +22,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
  */
 
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class RoundDaoTest {
+    
+     @Autowired 
+     private GameDao gameDao;
+     
+     
+    @Autowired 
+    private RoundDao roundDao;
+    
+    
+    private Game game;
+    private Round round;
+    
+    @BeforeEach
+    public void setUpClass() throws Exception {
+        List<Game>  gameList = gameDao.GetListOfGames();
+        
+        for(Game game : gameList) {
+            gameDao.DeleteGameId ();
+        }
 
 }

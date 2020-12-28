@@ -19,13 +19,13 @@ public interface Service {
     
     public Round Add (Round model) throws NoGameException;
     
-    public Round Guess (Round Round) throws NoGameException;
+    public Round Guess (Round Round) throws NoGameException, InvalidUserInput;
     
-    public List<Round> getRoundByTime (int gameId) throws NoGameException;
+    public List<Round> getRoundByTime (int gameId) throws NoGameException, InvalidUserInput;
     
-    public List<Game> GetListOfGames() throws NoGameException;
+    public List<Game> GetListOfGames() throws NoGameException, InvalidUserInput;
     
-    public Game GetGameById (int gameId) throws NoGameException;
+    public Game GetGameById (int gameId) throws NoGameException, InvalidUserInput;
 
    
     }
