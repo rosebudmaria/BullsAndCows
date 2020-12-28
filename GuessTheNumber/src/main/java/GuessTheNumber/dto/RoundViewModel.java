@@ -1,4 +1,4 @@
-package com.mycompany.guessthenumber.models;
+package GuessTheNumber.dto;
 
 /**
  *
