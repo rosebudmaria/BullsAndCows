@@ -1,6 +1,6 @@
+package GuessTheNumber.dto;
 
-
-package com.mycompany.guessthenumber.models;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -12,6 +12,11 @@ public class Round {
     private String Guess;
     private String TimeStampOfRound;
     private String Result;
+
+    public Round(int aInt, String string, String string0, LocalDateTime toLocalDateTime, int aInt0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     public int getRoundId() {
         return RoundId;
