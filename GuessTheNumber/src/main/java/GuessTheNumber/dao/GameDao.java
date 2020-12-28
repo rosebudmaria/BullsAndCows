@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface GameDao {
     
+    //public Game BeginGame (Game startGame);
+    
     public Game AddNewGame (Game newGame);
     
     public Game GetGameById(int gameId);
