@@ -9,6 +9,7 @@ import GuessTheNumber.dao.RoundDaoImpl;
 import GuessTheNumber.dto.Game;
 import GuessTheNumber.dto.Round;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class ServiceImpl implements Service {
     @Override
     public Game BeginGame() throws PersistenceException, NoGameException {
         
-    Game newGame = new Game(getFourDigitNumber());
+    Game newGame = new Game(());
     newGame= gameDao.AddNewGame(newGame);
     if(newGame== null){
         throw new NoGameException ("Sorry, a new game could not be created.");
@@ -83,6 +84,36 @@ public class ServiceImpl implements Service {
     @Override
     public Class<? extends Annotation> annotationType() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    public String checkGuess(Round guess){
+        Game game = gameDao.GetGameById(game.getGameId());
+        int exactMatches = 0;
+        int partialMatches = 0;
+        ArrayList<String> potentialPartialMatches = new ArrayList<>();
+        //mark game as finished if the guess matches the game answer
+        if (round.getGuess().equals(game.getFourDigitNumber())) {
+            game.setStatusOfGame("true");
+            gameDao.update(game);
+        }
+        //calculate number of exact matches
+        for(int i=0; i<game.getAnswer().length(); i++){
+            if(game.getAnswer().charAt(i) == guess.getGuess().charAt(i)){
+                exactMatches+=1;
+            }else{
+                //number of non-exact matches from the game answer
+                potentialPartialMatches.add(Character.toString(((game.getAnswer().charAt(i)))));
+            }
+        }
+        //calculate number of partial matches
+        for(String letter : potentialPartialMatches){
+            if(guess.getGuess().contains(letter)){
+                partialMatches++;
+            }
+        }
+        String result =  "e:"+exactMatches+":p:"+partialMatches;
+       return  result;
     }
 
 }
