@@ -1,6 +1,7 @@
-package com.mycompany.guessthenumber.data;
+package GuessTheNumber.Dao;
 
-import com.mycompany.guessthenumber.models.Round;
+
+import GuessTheNumber.dto.Round;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,12 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Repository
-public class RoundImplDao implements RoundDao {
+public class RoundDaoImpl implements RoundDao {
     
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public RoundImplDao(JdbcTemplate jdbcTemplate) {
+    private RoundDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -67,6 +68,7 @@ public class RoundImplDao implements RoundDao {
                 + "WHERE RoundId = ?;";
         jdbcTemplate.update(sql, RoundId);
     }
+
     
     public static final class RoundMapper implements RowMapper<Round> {
         
