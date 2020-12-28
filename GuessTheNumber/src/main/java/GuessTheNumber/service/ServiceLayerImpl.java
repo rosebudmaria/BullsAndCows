@@ -42,7 +42,7 @@ public class ServiceLayerImpl implements ServiceLayer {
     Game newGame = new Game(generateFourDigitNumber());
     newGame = gameDao.AddNewGame(newGame);
         if (newGame == null) {
-            throw new NoGameException("Failed to create new game.");
+            throw new NoGameException("Sorry, a new game could not be created.");
         }
    
     return newGame;
@@ -54,24 +54,53 @@ public class ServiceLayerImpl implements ServiceLayer {
     
     
     @Override
-    public Round Guess(Round Round) throws NoGameException, InvalidUserInput {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Round guess(Round round) throws NoGameException, InvalidUserInput {
+        validateGuess(round.getGuess());
+        Game playingGame = GetGameById(round.getGameById());
+//        Game playingGame = gameDao.getGameById(round.getGameID());
+//        if (playingGame == null) {
+//            throw new NoSuchGameException("No Game found for Game ID :" + round.getGameID());
+//        }
+        if (playingGame.getStatus() == false) {
+            throw new NoSuchGameException("Game ID :" + playingGame.getGameId() + " has finished, please start a new game");
+        }
+        String[] result = gameLogic(round.getAnswer(), playingGame.getRandomNumber());
+        round.setResult(result[0]);
+        if (result[1].equals("4")) {
+            playingGame.endGame();
+            gameDao.updateGame(playingGame);
+        }
+        round = roundDao.addRound(round);
+        return round;
+        
     }
 
     @Override
     public List<Round> getRoundByTime(int gameId) throws NoGameException, InvalidUserInput {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        
+   Game game = GetGameById(gameId);
+        List<Round> rounds = roundDao.GetRoundByTime (game.getGameId());
+        if (rounds.size() == 0) {
+            throw new NoGameException("This game has 0 rounds. It was not played yet");
+        }
+        return rounds;}
 
     @Override
     public List<Game> GetListOfGames() throws NoGameException, InvalidUserInput {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+       List<Game> games = gameDao.GetListOfGames();
+        if (games.size() == 0) {
+            throw new NoGameException("No games have been created.");
+        }
+        return games; }
 
     @Override
     public Game GetGameById(int gameId) throws NoGameException, InvalidUserInput {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        
+       Game getGame = gameDao.GetGameById(gameId);
+        if (getGame == null) {
+            throw new NoGameException("No Game found for Game Id : " + gameId+ "could be found. Please try again.");
+        }
+        return getGame; }
     
    
  
