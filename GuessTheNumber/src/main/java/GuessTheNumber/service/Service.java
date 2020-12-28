@@ -24,14 +24,15 @@ import java.util.List;
  */
 public interface Service {
     
-    public Game BeginGame()throws NoGameException;
+    public Game BeginGame()throws PersistenceException, NoGameException, 
+            InvalidUserInput;
     //"begin" - POST – Starts a game, generates an answer, and sets the correct status. 
     //Should return a 201 CREATED message as well as the created gameId.
     
     public Round Add (Round model) throws NoGameException;
     //"add" - adding addtional round to the game
     
-    public Round Guess(Round round)throws NoGameException,PersistenceException;
+    public Round Guess(Round round)throws NoGameException, InvalidUserInput;
     //"guess" – POST – Makes a guess by passing the guess and gameId in as JSON.
     //The program must calculate the results of the guess and mark the game finished if the guess is correct. 
     //It returns the Round object with the results filled in.
@@ -40,13 +41,17 @@ public interface Service {
     //"game" – GET – Returns a list of all games. Be sure in-progress games do not display their answer.
     
     
-    public Game GetGameById(int gameID) throws NoGameException; 
+    public Game GetGameById(int gameID) throws NoGameException, 
+            InvalidUserInput; 
     //"game/{gameId}" - GET – Returns a specific game based on ID. Be sure in-progress games 
     //do not display their answer.
     
-    public List<Round> GetRoundByTime(int GameID) throws NoGameException; 
+    public List<Round> GetRoundByTime(int GameID) throws NoGameException, 
+            InvalidUserInput; 
     //"rounds/{gameId} – GET – Returns a list of rounds for the specified game sorted by time.s
-
-
+    
+    public void validateGuess(String input) throws InvalidUserInput;
+    
+    public String generateFourDigitNumber();
    
     }
