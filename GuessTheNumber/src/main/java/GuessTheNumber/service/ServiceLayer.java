@@ -13,19 +13,23 @@ import java.util.List;
  *
  * @author shana
  */
-public interface Service {
+public interface ServiceLayer {
     
     public Game BeginGame() throws PersistenceException, NoGameException;
     
     public Round Add (Round model) throws NoGameException;
     
-    public Round Guess (Round Round) throws NoGameException, InvalidUserInput;
+    public Round GetGuess (Round Round) throws NoGameException, InvalidUserInput;
     
     public List<Round> getRoundByTime (int gameId) throws NoGameException, InvalidUserInput;
     
     public List<Game> GetListOfGames() throws NoGameException, InvalidUserInput;
     
     public Game GetGameById (int gameId) throws NoGameException, InvalidUserInput;
+    
+    public void validateGuess(String input) throws InvalidUserInput;
+    
+    public String generateFourDigitNumber();
 
    
     }

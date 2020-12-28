@@ -11,7 +11,16 @@ import java.util.Objects;
 
  */
 public class Round {
-
+    
+    
+    
+   private int RoundId;
+    public Game GameId;
+    private String Guess;
+    private LocalDateTime TimeStampOfRound;
+    private String Result;
+    
+    
     public int getRoundId() {
         return RoundId;
     }
@@ -28,11 +37,11 @@ public class Round {
         this.GameId = GameId;
     }
 
-    public char getGuess() {
+    public String getGuess() {
         return Guess;
     }
 
-    public void setGuess(char Guess) {
+    public void setGuess(String Guess) {
         this.Guess = Guess;
     }
 
@@ -51,22 +60,21 @@ public class Round {
     public void setResult(String Result) {
         this.Result = Result;
     }
-    private int RoundId;
-    public Game GameId;
-    private char Guess;
-    private LocalDateTime TimeStampOfRound;
-    private String Result;
-
+    
+    
+    
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 5;
         hash = 71 * hash + this.RoundId;
         hash = 71 * hash + Objects.hashCode(this.GameId);
-        hash = 71 * hash + this.Guess;
+        hash = 71 * hash + Objects.hashCode(this.Guess);
         hash = 71 * hash + Objects.hashCode(this.TimeStampOfRound);
         hash = 71 * hash + Objects.hashCode(this.Result);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

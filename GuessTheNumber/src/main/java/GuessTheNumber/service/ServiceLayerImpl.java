@@ -10,7 +10,9 @@ import GuessTheNumber.dto.Game;
 import GuessTheNumber.dto.Round;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +22,14 @@ import org.springframework.stereotype.Service;
 
  */
 
-@Service
-public class ServiceImpl implements Service {
+public class ServiceLayerImpl implements ServiceLayer {
 
     
-    @Autowired
-    GameDao gameDao;
     
-    @Autowired
-    RoundDao roundDao;
+   private GameDaoImpl gameDao;
+    private RoundDaoImpl roundDao;
     
-     public ServiceImpl(GameDaoImpl gameDao, RoundDaoImpl roundDao) {
+     public ServiceLayerImpl(GameDaoImpl gameDao, RoundDaoImpl roundDao) {
         this.gameDao = gameDao;
         this.roundDao = roundDao;
 
@@ -40,11 +39,12 @@ public class ServiceImpl implements Service {
     @Override
     public Game BeginGame() throws PersistenceException, NoGameException {
         
-    Game newGame = new Game(());
-    newGame= gameDao.AddNewGame(newGame);
-    if(newGame== null){
-        throw new NoGameException ("Sorry, a new game could not be created.");
-    }
+    Game newGame = new Game(generateFourDigitNumber());
+    newGame = gameDao.AddNewGame(newGame);
+        if (newGame == null) {
+            throw new NoGameException("Failed to create new game.");
+        }
+   
     return newGame;
     
     }
@@ -74,29 +74,39 @@ public class ServiceImpl implements Service {
     }
     
    
-    
-
-    @Override
-    public String value() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+ 
+    public String generateFourDigitNumber() {
+        String number = "";
+        HashSet<Integer> set = new HashSet<Integer>();
+        Random rand = new Random();
+        while (set.size() != 4) {
+            int num = rand.nextInt(10);
+            if (!set.contains(num)) {
+                set.add(num);
+                number = number + num;
+            }
+        }
+        return number;
     }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
-    
-    public String checkGuess(Round guess){
-        Game game = gameDao.GetGameById(game.getGameId());
+    public String validateGuess(Round guess){
+        
+        
+        int game;
+        game = gameDao.GetGameById(guess.getGameId());
+        Round round= roundDao.AddRound(round);
         int exactMatches = 0;
         int partialMatches = 0;
         ArrayList<String> potentialPartialMatches = new ArrayList<>();
+        
         //mark game as finished if the guess matches the game answer
         if (round.getGuess().equals(game.getFourDigitNumber())) {
-            game.setStatusOfGame("true");
-            gameDao.update(game);
+            game.setStatusOfGame(true);
+            gameDao.UpdateGame(game);
         }
+        
+        
+        
         //calculate number of exact matches
         for(int i=0; i<game.getAnswer().length(); i++){
             if(game.getAnswer().charAt(i) == guess.getGuess().charAt(i)){
@@ -115,5 +125,11 @@ public class ServiceImpl implements Service {
         String result =  "e:"+exactMatches+":p:"+partialMatches;
        return  result;
     }
+
+  
+    
+  
+
+    
 
 }

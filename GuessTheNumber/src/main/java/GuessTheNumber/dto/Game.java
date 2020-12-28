@@ -13,7 +13,7 @@ public class Game {
     
     private int GameId;
     private String FourDigitNumber;
-    private String StatusOfGame ; 
+    private Boolean StatusOfGame ; 
 
 //    public Game(int aInt, String string, String string0) {
 //     this.GameId= GameId;
@@ -21,6 +21,19 @@ public class Game {
 //     this.StatusOfGame= StatusOfGame;
 //    }
 
+    public Game(String generateFourDigitNumber){
+        this.FourDigitNumber = generateFourDigitNumber;
+    }
+    
+    public Game(int GameId){
+        this.GameId= GameId;
+    }
+    
+    public Game(Boolean StatusOfGame){
+        this.StatusOfGame= StatusOfGame;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -62,11 +75,11 @@ public class Game {
         this.FourDigitNumber = FourDigitNumber;
     }
 
-    public String getStatusOfGame() {
+    public Boolean getStatusOfGame() {
         return StatusOfGame;
     }
 
-    public void setStatusOfGame(String StatusOfGame) {
+    public void setStatusOfGame(Boolean StatusOfGame) {
         this.StatusOfGame = StatusOfGame;
     }
 

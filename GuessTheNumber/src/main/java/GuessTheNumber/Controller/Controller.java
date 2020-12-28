@@ -10,7 +10,6 @@ import GuessTheNumber.dto.Round;
 import GuessTheNumber.dto.RoundViewModel;
 import GuessTheNumber.service.NoGameException;
 import GuessTheNumber.service.PersistenceException;
-import GuessTheNumber.service.Service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import GuessTheNumber.service.ServiceLayer;
 
 /**
  *
@@ -40,7 +40,7 @@ public class Controller {
     
     
      @Autowired
-    Service service;
+    ServiceLayer service;
 
 //"begin" - POST – Starts a game, generates an answer, and sets the correct status. 
 //Should return a 201 CREATED message as well as the created gameId.
