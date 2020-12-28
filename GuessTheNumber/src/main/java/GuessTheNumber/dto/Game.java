@@ -15,11 +15,11 @@ public class Game {
     private String FourDigitNumber;
     private String StatusOfGame ; 
 
-    public Game(int aInt, String string, String string0) {
-     this.GameId= GameId;
-     this.FourDigitNumber= FourDigitNumber;
-     this.StatusOfGame= StatusOfGame;
-    }
+//    public Game(int aInt, String string, String string0) {
+//     this.GameId= GameId;
+//     this.FourDigitNumber= FourDigitNumber;
+//     this.StatusOfGame= StatusOfGame;
+//    }
 
     @Override
     public int hashCode() {

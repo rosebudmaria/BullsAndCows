@@ -17,6 +17,8 @@ public interface Service {
     
     public Game BeginGame() throws PersistenceException, NoGameException;
     
+    public Round Add (Round model) throws NoGameException;
+    
     public Round Guess (Round Round) throws NoGameException;
     
     public List<Round> getRoundByTime (int gameId) throws NoGameException;
@@ -24,7 +26,6 @@ public interface Service {
     public List<Game> GetListOfGames() throws NoGameException;
     
     public Game GetGameById (int gameId) throws NoGameException;
-    
-    
-    
-}
+
+   
+    }

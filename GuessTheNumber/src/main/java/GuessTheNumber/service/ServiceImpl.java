@@ -2,8 +2,10 @@
 
 package GuessTheNumber.service;
 
-import GuessTheNumber.Dao.GameDao;
-import GuessTheNumber.Dao.RoundDao;
+import GuessTheNumber.dao.GameDao;
+import GuessTheNumber.dao.RoundDao;
+import GuessTheNumber.dao.GameDaoImpl;
+import GuessTheNumber.dao.RoundDaoImpl;
 import GuessTheNumber.dto.Game;
 import GuessTheNumber.dto.Round;
 import java.lang.annotation.Annotation;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
 
  */
 
-@service
+@Service
 public class ServiceImpl implements Service {
 
     
@@ -27,11 +29,29 @@ public class ServiceImpl implements Service {
     @Autowired
     RoundDao roundDao;
     
-    @Override
-    public Game BeginGame() throws PersistenceException, NoGameException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public ServiceImpl(GameDaoImpl gameDao, RoundDaoImpl roundDao) {
+        this.gameDao = gameDao;
+        this.roundDao = roundDao;
+
     }
 
+    
+    @Override
+    public Game BeginGame() throws PersistenceException, NoGameException {
+        
+    Game newGame = new Game(getFourDigitNumber());
+    newGame= gameDao.AddNewGame(newGame);
+    if(newGame== null){
+        throw new NoGameException ("Sorry, a new game could not be created.");
+    }
+    return newGame;
+    
+    }
+
+    
+    
+    
+    
     @Override
     public Round Guess(Round Round) throws NoGameException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -51,6 +71,9 @@ public class ServiceImpl implements Service {
     public Game GetGameById(int gameId) throws NoGameException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+   
+    
 
     @Override
     public String value() {

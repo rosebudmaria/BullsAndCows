@@ -1,6 +1,4 @@
-
-
-package GuessTheNumber.Dao;
+package GuessTheNumber.dao;
 
 import GuessTheNumber.dto.Game;
 import java.sql.ResultSet;
@@ -77,7 +75,7 @@ public class GameDaoImpl implements GameDao{
 
         @Override
         public Game mapRow(ResultSet rs, int index) throws SQLException {
-            Game game = new Game(rs.getInt("GameId"), rs.getString("FourDigitNumber"), rs.getString("StatusOfGame"));
+            //Game game = new Game(rs.getInt("GameId"), rs.getString("FourDigitNumber"), rs.getString("StatusOfGame"));
             return game;
         }
     }

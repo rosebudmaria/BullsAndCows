@@ -1,6 +1,5 @@
 
-
-package GuessTheNumber.Dao;
+package GuessTheNumber.dao;
 
 import GuessTheNumber.dto.Round;
 import java.util.List;
