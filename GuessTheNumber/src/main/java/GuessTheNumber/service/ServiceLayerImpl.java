@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 public class ServiceLayerImpl implements ServiceLayer {
 
     
-    
    private GameDaoImpl gameDao;
     private RoundDaoImpl roundDao;
     
@@ -52,11 +51,10 @@ public class ServiceLayerImpl implements ServiceLayer {
     
     
     
-    
     @Override
-    public Round guess(Round round) throws NoGameException, InvalidUserInput {
-        validateGuess(round.getGuess());
-        Game playingGame = GetGameById(round.getGameById());
+    public Round Guess(Round round) throws NoGameException, InvalidUserInput {
+        validateInputNumber(round.getGuess());
+        Game playingGame = GetGameById(game.getGameById());
 //        Game playingGame = gameDao.getGameById(round.getGameID());
 //        if (playingGame == null) {
 //            throw new NoSuchGameException("No Game found for Game ID :" + round.getGameID());
@@ -70,7 +68,7 @@ public class ServiceLayerImpl implements ServiceLayer {
             playingGame.endGame();
             gameDao.updateGame(playingGame);
         }
-        round = roundDao.addRound(round);
+        round = roundDao.AddRound(round);
         return round;
         
     }
@@ -118,47 +116,50 @@ public class ServiceLayerImpl implements ServiceLayer {
         return number;
     }
     
-    public String validateGuess(Round guess){
-        
-        
-        int game;
-        game = gameDao.GetGameById(guess.getGameId());
-        Round round= roundDao.AddRound(round);
-        int exactMatches = 0;
-        int partialMatches = 0;
-        ArrayList<String> potentialPartialMatches = new ArrayList<>();
-        
-        //mark game as finished if the guess matches the game answer
-        if (round.getGuess().equals(game.getFourDigitNumber())) {
-            game.setStatusOfGame(true);
-            gameDao.UpdateGame(game);
-        }
-        
-        
-        
-        //calculate number of exact matches
-        for(int i=0; i<game.getAnswer().length(); i++){
-            if(game.getAnswer().charAt(i) == guess.getGuess().charAt(i)){
-                exactMatches+=1;
-            }else{
-                //number of non-exact matches from the game answer
-                potentialPartialMatches.add(Character.toString(((game.getAnswer().charAt(i)))));
-            }
-        }
-        //calculate number of partial matches
-        for(String letter : potentialPartialMatches){
-            if(guess.getGuess().contains(letter)){
-                partialMatches++;
-            }
-        }
-        String result =  "e:"+exactMatches+":p:"+partialMatches;
-       return  result;
-    }
-
-  
     
-  
-
+     public boolean validateInputNumber(String number) throws InvalidUserInput {
+        if (number.length() != 4) {
+            throw new InvalidUserInput("Please enter a 4 digit number");
+        }
+        HashSet<Character> set = new HashSet<Character>();
+        for (int i = 0; i < number.length(); i++) {
+            char temp = number.charAt(i);
+            if (!Character.isDigit(temp)) {
+                throw new InvalidUserInput("Please enter a 4 digit number, " + temp + " is not a number");
+            } else if (set.contains(temp)) {
+                throw new InvalidUserInput("Please enter a 4 digit non-repeating number, " + temp + " is repeating");
+            } else {
+                set.add(temp);
+            }
+        }
+        if (set.size() == 4) {
+            return true;
+        } else {
+            throw new InvalidUserInput("Invalid number input for" + number);
+        }
+    }
+     
+     
+    private String[] gameLogic(String guess, String randomNumber) {
+        HashSet<Character> set = new HashSet<Character>();
+        int exactMatch = 0, partialMatch = 0;
+        for (int i = 0; i < guess.length(); i++) {
+            if (guess.charAt(i) == randomNumber.charAt(i)) {
+                exactMatch++;
+            } else {
+                set.add(randomNumber.charAt(i));
+            }
+        }
+        for (int i = 0; i < guess.length(); i++) {
+            if (set.contains(guess.charAt(i))) {
+                partialMatch++;
+            }
+        }
+        String[] arr = new String[2];
+        arr[0] = "e:" + exactMatch + ":p:" + partialMatch;
+        arr[1] = exactMatch + "";
+        return arr;
+    }
     
 
 }

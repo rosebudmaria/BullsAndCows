@@ -15,11 +15,11 @@ public class Game {
     private String FourDigitNumber;
     private Boolean StatusOfGame ; 
 
-//    public Game(int aInt, String string, String string0) {
-//     this.GameId= GameId;
-//     this.FourDigitNumber= FourDigitNumber;
-//     this.StatusOfGame= StatusOfGame;
-//    }
+   public Game(int GameId, String FourDigitNumber, Boolean StatusOfGame) {
+        this.GameId = GameId;
+        this.FourDigitNumber = FourDigitNumber;
+        this.StatusOfGame = StatusOfGame;
+    }
 
     public Game(String generateFourDigitNumber){
         this.FourDigitNumber = generateFourDigitNumber;

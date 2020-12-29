@@ -21,6 +21,9 @@ public class Round {
     private String Result;
     
     
+ 
+    
+    
     public int getRoundId() {
         return RoundId;
     }

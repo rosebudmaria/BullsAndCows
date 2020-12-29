@@ -75,7 +75,7 @@ public class GameDaoImpl implements GameDao{
 
         @Override
         public Game mapRow(ResultSet rs, int index) throws SQLException {
-            //Game game = new Game(rs.getInt("GameId"), rs.getString("FourDigitNumber"), rs.getString("StatusOfGame"));
+            Game game = new Game(rs.getInt("GameId"), rs.getString("FourDigitNumber"), rs.getBoolean("StatusOfGame"));
             return game;
         }
     }
