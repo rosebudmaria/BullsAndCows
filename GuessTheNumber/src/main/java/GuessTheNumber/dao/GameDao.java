@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GuessTheNumber.Dao;
+
+package GuessTheNumber.dao;
 
 import GuessTheNumber.dto.Game;
 import java.util.List;
@@ -13,6 +9,8 @@ import java.util.List;
  * @author shana
  */
 public interface GameDao {
+    
+    //public Game BeginGame (Game startGame);
     
     public Game AddNewGame (Game newGame);
     
@@ -26,4 +24,5 @@ public interface GameDao {
     
     
     
+
 }
