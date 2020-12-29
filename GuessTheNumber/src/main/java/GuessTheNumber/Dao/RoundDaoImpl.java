@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class RoundDaoImpl implements RoundDao {
     
+    
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -28,21 +29,21 @@ public class RoundDaoImpl implements RoundDao {
 
     @Override
     @Transactional
-    public Round add(Round newRound) {
+    public Round add(Round round) {
         
         final String sql = "INSERT INTO Round(Guess, Result, TimeStampOfRound, GameId) " 
                 + "VALUES(?, ?, ?, ?);";
         
         try {
-            jdbcTemplate.update(sql, newRound.getGuess(), newRound.getResult(), 
-                    newRound.getTimeStampOfRound(), newRound.getGameId());
+            jdbcTemplate.update(sql, round.getGuess(), round.getResult(), 
+                    round.getTimeStampOfRound(), round.getGameId());
         } catch(Exception ex) {
             return null;
         }
         int newId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        newRound.setRoundId(newId);
+        round.setRoundId(newId);
         
-        return newRound;
+        return round;
     }
 
     @Override
@@ -69,7 +70,24 @@ public class RoundDaoImpl implements RoundDao {
         jdbcTemplate.update(sql, RoundId);
     }
 
-    
+
+    @Override
+    public String getGuess() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Round getRoundById(int roundId) {
+        try {
+            final String SELECT_ROUND = "SELECT * FROM ROUND WHERE RoundId = ? ;";
+            return jdbcTemplate.queryForObject(SELECT_ROUND, new RowMapper() {}, RoundId);
+        } catch(Exception ex) {
+    return null;
+        }
+    }
+
+   
+
     public static final class RoundMapper implements RowMapper<Round> {
         
         @Override
