@@ -11,16 +11,13 @@ import java.util.List;
  * and open the template in the editor.
  */
 /*
-
 package GuessTheNumber.service;
-
 import GuessTheNumber.dto.Game;
 import GuessTheNumber.dto.Round;
 import java.util.List;
-
 /**
  *
- * @author shana
+ * @author Rosalinda Powell
  */
 public interface Service {
     
@@ -53,5 +50,7 @@ public interface Service {
     public void validateGuess(String input) throws InvalidUserInput;
     
     public String generateFourDigitNumber();
+
+    public List<Game> GetListOfGames();
    
     }
