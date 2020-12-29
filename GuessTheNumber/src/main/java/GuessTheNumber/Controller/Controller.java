@@ -24,53 +24,6 @@ import GuessTheNumber.service.Service;
 
 /**
  *
- * @author Rosalinda Powell  
- */
-
-@RestController
-public class Controller {
-    
-    @Autowired
-    private GameDao gameDao;
-    
-    @Autowired
-    private RoundDao roundDao;
-    
-    
-     @Autowired
-    Service service;
-
-//"begin" - POST – Starts a game, generates an answer, and sets the correct status. 
-//Should return a 201 CREATED message as well as the created gameId.
-
-    /**
-     *
-     * @returnpackage GuessTheNumber.Controller;
-
-import GuessTheNumber.Dao.GameDao;
-import GuessTheNumber.Dao.RoundDao;
-import GuessTheNumber.dto.Game;
-import GuessTheNumber.dto.GameViewModel;
-import GuessTheNumber.dto.Round;
-import GuessTheNumber.dto.RoundViewModel;
-import GuessTheNumber.service.InvalidUserInput;
-import GuessTheNumber.service.NoGameException;
-import GuessTheNumber.service.PersistenceException;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import GuessTheNumber.service.Service;
-
-/**
- *
  * @author Rosalinda Powell ,  Dec 26, 2020  ,  1:21:40 AM
  */
 
