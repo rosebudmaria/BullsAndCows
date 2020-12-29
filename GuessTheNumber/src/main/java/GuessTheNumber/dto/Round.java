@@ -1,35 +1,32 @@
 
 
-package GuessTheNumber.dto;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
+package com.mycompany.guessthenumber.models;
 
 /**
  *
- * @author Shantoria Taylor  ,  Dec 25, 2020  ,  8:37:20 PM
-
+ * @author rosalindapowell0608
  */
 public class Round {
-    
-    
+
+
+
   private int RoundId;
   public Game GameId;
   private String Guess;
   private LocalDateTime TimeStampOfRound;
   private String Result;
-    
-    
-    
+
+
+
     public Round(int RoundId, String Guess, String Result) {
         this.RoundId = RoundId;
         this.Guess = Guess;
         this.Result = Result;
     }
-    
- 
-    
-    
+
+
+  
+
     public int getRoundId() {
         return RoundId;
     }
@@ -38,11 +35,12 @@ public class Round {
         this.RoundId = RoundId;
     }
 
-    public Game getGameId() {
+
+    public int getGameId() {
         return GameId;
     }
 
-    public void setGameId(Game GameId) {
+    public void setGameId(int GameId) {
         this.GameId = GameId;
     }
 
@@ -54,14 +52,13 @@ public class Round {
         this.Guess = Guess;
     }
 
-    public LocalDateTime getTimeStampOfRound() {
+    public String getTimeStampOfRound() {
         return TimeStampOfRound;
     }
 
-    public void setTimeStampOfRound(LocalDateTime TimeStampOfRound) {
+    public void setTimeStampOfRound(String TimeStampOfRound) {
         this.TimeStampOfRound = TimeStampOfRound;
     }
-
     public String getResult() {
         return Result;
     }
@@ -69,9 +66,9 @@ public class Round {
     public void setResult(String Result) {
         this.Result = Result;
     }
-    
-    
-    
+
+
+
     @Override
     public int hashCode() {
         int hash = 5;
