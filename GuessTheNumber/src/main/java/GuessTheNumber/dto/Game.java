@@ -12,15 +12,40 @@ import java.util.Objects;
 public class Game {   
     
     private int GameId;
-    private char FourDigitNumber;
-    private String StatusOfGame ; 
+    private String FourDigitNumber;
+    private Boolean StatusOfGame ; 
+    
+    
+    
+    public Game(String FourDigitNumber, Boolean StatusOfGame) {
+        this.FourDigitNumber = FourDigitNumber;
+        this.StatusOfGame = StatusOfGame;
+    }
+    
 
+   public Game(int GameId, String FourDigitNumber, Boolean StatusOfGame) {
+        this.GameId = GameId;
+        this.FourDigitNumber = FourDigitNumber;
+        this.StatusOfGame = StatusOfGame;
+    }
+
+    public Game(String generateFourDigitNumber){
+        this.FourDigitNumber = generateFourDigitNumber;
+    }
+    
+    public Game(int GameId){
+        this.GameId= GameId;
+    }
+    
+    public Game(Boolean StatusOfGame){
+        this.StatusOfGame= StatusOfGame;
+    }
+    
+    
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + this.GameId;
-        hash = 29 * hash + this.FourDigitNumber;
-        hash = 29 * hash + Objects.hashCode(this.StatusOfGame);
+        int hash = 5;
+        hash = 31 * hash + this.GameId;
         return hash;
     }
 
@@ -39,12 +64,6 @@ public class Game {
         if (this.GameId != other.GameId) {
             return false;
         }
-        if (this.FourDigitNumber != other.FourDigitNumber) {
-            return false;
-        }
-        if (!Objects.equals(this.StatusOfGame, other.StatusOfGame)) {
-            return false;
-        }
         return true;
     }
 
@@ -56,22 +75,29 @@ public class Game {
         this.GameId = GameId;
     }
 
-    public char getFourDigitNumber() {
+    public String getFourDigitNumber() {
         return FourDigitNumber;
     }
 
-    public void setFourDigitNumber(char FourDigitNumber) {
+    public void setFourDigitNumber(String FourDigitNumber) {
         this.FourDigitNumber = FourDigitNumber;
     }
 
-    public String getStatusOfGame() {
+    public Boolean getStatusOfGame() {
         return StatusOfGame;
     }
 
-    public void setStatusOfGame(String StatusOfGame) {
+    public void setStatusOfGame(Boolean StatusOfGame) {
         this.StatusOfGame = StatusOfGame;
     }
-    
 
+    public void endGame() {
+      
+    }
+
+   
+
+
+  
 
 }

@@ -1,7 +1,7 @@
 package GuessTheNumber.Controller;
 
-import GuessTheNumber.Dao.GameDao;
-import GuessTheNumber.Dao.RoundDao;
+import GuessTheNumber.dao.GameDao;
+import GuessTheNumber.dao.RoundDao;
 import GuessTheNumber.dto.Game;
 import GuessTheNumber.dto.GameViewModel;
 import GuessTheNumber.dto.Round;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import GuessTheNumber.service.Service;
+import GuessTheNumber.service.ServiceLayer;
 
 /**
  *
@@ -29,18 +29,18 @@ import GuessTheNumber.service.Service;
 
 @RestController
 public class Controller {
-    
+
     @Autowired
     private GameDao gameDao;
-    
+
     @Autowired
     private RoundDao roundDao;
-    
-    
-    @Autowired
-    Service service;
 
-//"begin" - POST – Starts a game, generates an answer, and sets the correct status. 
+
+     @Autowired
+    ServiceLayer service;
+
+//"begin" - POST – Starts a game, generates an answer, and sets the correct status.
 //Should return a 201 CREATED message as well as the created gameId.
 
     /**
@@ -54,19 +54,19 @@ public class Controller {
         return new GameViewModel(service.BeginGame());
     }
 
-//"guess" – POST – Makes a guess by passing the guess and gameId in as JSON. 
-//The program must calculate the results of the guess and mark the game finished if the guess is correct. 
+//"guess" – POST – Makes a guess by passing the guess and gameId in as JSON.
+//The program must calculate the results of the guess and mark the game finished if the guess is correct.
 //It returns the Round object with the results filled in.
     @PostMapping("/guess")
     // @ResponseStatus(HttpStatus.CREATED)
-    public RoundViewModel guess(@RequestBody Round round)throws NoGameException, 
+    public RoundViewModel guess(@RequestBody Round round)throws NoGameException,
             PersistenceException,
             InvalidUserInput{
         Round thisRound = round;
         Round newRound = service.Guess(round);
-        
+
         return new RoundViewModel();
-      
+
     }
 
 //"game" – GET – Returns a list of all games. Be sure in-progress games do not display their answer.
@@ -87,12 +87,12 @@ public class Controller {
         return new GameViewModel(service.GetGameById(gameId));
     }
 
-    
-    
+
+
 //"rounds/{gameId} – GET – Returns a list of rounds for the specified game sorted by time.
     @GetMapping("/rounds/{gameId}")
     public List<Round> getListOfRoundsForGame(@PathVariable int gameId) throws NoGameException, InvalidUserInput{
-        return service.GetRoundByTime(gameId);
+        return service.getRoundByTime(gameId);
     }
 
 }
