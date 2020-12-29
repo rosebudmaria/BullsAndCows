@@ -1,10 +1,8 @@
-
-
 package GuessTheNumber.dto;
 
 /**
  *
- * @author Shantoria Taylor  ,  Dec 27, 2020  ,  9:38:26 PM
+ *
 
  */
 public class RoundViewModel {
