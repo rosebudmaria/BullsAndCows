@@ -8,6 +8,7 @@ import GuessTheNumber.dto.Game;
 import GuessTheNumber.dto.GameViewModel;
 import GuessTheNumber.dto.Round;
 import GuessTheNumber.dto.RoundViewModel;
+import GuessTheNumber.service.InvalidUserInput;
 import GuessTheNumber.service.NoGameException;
 import GuessTheNumber.service.PersistenceException;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class Controller {
 
 //"game" – GET – Returns a list of all games. Be sure in-progress games do not display their answer.
     @GetMapping("/game")
-    public List<GameViewModel> getListOfGames()  throws PersistenceException, NoGameException {
+    public List<GameViewModel> getListOfGames()  throws PersistenceException, NoGameException, InvalidUserInput {
         List<GameViewModel> listOfGameVM = new ArrayList<>();
         List<Game> listOfGames = service.GetListOfGames();
         for (int i = 0; i < listOfGames.size(); i++) {
@@ -84,7 +85,7 @@ public class Controller {
 
 //"game/{gameId}" - GET – Returns a specific game based on ID.Be sure in-progress games do not display their answer.
     @GetMapping("/game/{gameId}")
-    public GameViewModel getGameById(@PathVariable int gameId)throws NoGameException{
+    public GameViewModel getGameById(@PathVariable int gameId)throws NoGameException, InvalidUserInput{
         return new GameViewModel(service.GetGameById(gameId));
     }
 
@@ -92,7 +93,7 @@ public class Controller {
     
 //"rounds/{gameId} – GET – Returns a list of rounds for the specified game sorted by time.
     @GetMapping("/rounds/{gameId}")
-    public List<Round> getListOfRoundsForGame(@PathVariable int gameId) throws NoGameException{
+    public List<Round> getListOfRoundsForGame(@PathVariable int gameId) throws NoGameException, InvalidUserInput{
         return service.getRoundByTime(gameId);
     }
 

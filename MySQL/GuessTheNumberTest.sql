@@ -5,7 +5,7 @@ USE GuessTheNumberTest;
 
 CREATE TABLE Game( 
 GameId INT PRIMARY KEY AUTO_INCREMENT, 
-FourDigitNumber CHAR(4) NOT NULL, 
+FourDigitNumber Varchar(4) NOT NULL, 
 StatusOfGame Boolean NOT NULL 
 );
 
