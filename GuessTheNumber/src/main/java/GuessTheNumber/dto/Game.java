@@ -14,6 +14,14 @@ public class Game {
     private int GameId;
     private String FourDigitNumber;
     private Boolean StatusOfGame ; 
+    
+    
+    
+    public Game(String FourDigitNumber, Boolean StatusOfGame) {
+        this.FourDigitNumber = FourDigitNumber;
+        this.StatusOfGame = StatusOfGame;
+    }
+    
 
    public Game(int GameId, String FourDigitNumber, Boolean StatusOfGame) {
         this.GameId = GameId;
