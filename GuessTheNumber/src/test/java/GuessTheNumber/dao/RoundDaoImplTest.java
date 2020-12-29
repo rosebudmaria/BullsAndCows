@@ -3,12 +3,7 @@ package GuessTheNumber.dao;
 import GuessTheNumber.dto.Game;
 import GuessTheNumber.GuessTheNumberApplicationTests;
 import GuessTheNumber.dto.Round;
-import java.time.LocalDateTime;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,41 +27,67 @@ public class RoundDaoImplTest {
     @Autowired 
     private RoundDao roundDao;
     
-    private Game game;
-    private Round round;
-    private Round testRound;
+    public RoundDaoImplTest() {
+    }
     
     @BeforeEach
-    public void setUp() throws Exception {
-        List<Game>  gameList = gameDao.getListOfGames();
-        for(Game game : gameList) {
-            gameDao.deleteGameById (game.getGameId());
+    public void setUp() {
+       //List<Game> gameList = gameDao.getListOfNames;
+        //for(Game game : gameList) {
+            //gameDao.deleteGameById (game.getGameId());
+        //}
+        
+        List<Round> roundList = roundDao.getListOfNames;
+        for(Round round : roundList) {
+            roundDao.deleteRoundById (round.getRoundId());
         }
-        testRound = new Round();
-        testRound.setResult("1007");
-        testRound.setTimeStampOfRound(LocalDateTime.MIN);
     }
+    
+
     @Test
-    public void testBeginRound() {
-        testRound= roundDao.addNewGame(testRound);
-        Round round = roundDao.getGameById(testRound.getRoundId());
-        assertNotNull(testRound, "The game should not be null.");
-        assertEquals(testRound, round);
-    }
-    
-    
-   @Test
-    public void testUpdate() {
-        Round round = new Round();
-        round.setRoundId(2);
-        round.setGuess("1234");
+    public void testAddRound() {
+        Game game = new Game("1994");
+        game = gameDao.addNewGame(game);
+        Round round = new Round("1964", "e:3:p:0", game.getGameId());
         round = roundDao.addRound(round);
-        
-        Round roundDao = roundDao.getRoundById(round.getRoundId());
-        
+        Round roundTest = new Round(round.getRoundId(), "1964", "e:3:p:0", 
+                round.getTimeStampOfRound(), game.getGameId());
+        //assert
+        assertEquals(roundTest, round);
     }
 
-    private void assertNotNull(Round testRound, String the_game_should_not_be_null) {
-        throw new UnsupportedOperationException("The game should not be null."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Test of GetAllRounds method, of class RoundDaoImpl.
+     */
+    @Test
+    public void testGetAllRounds() {
+        Game g1= new Game("1017");
+        Game g2= new Game("0420");
+        
+        g1 = gameDao.addNewGame(g1);
+        g2 = gameDao.addNewGame(g2);
+        
+        Round r1g1 = new Round("1010", "e:3:p:0", g1.getGameId());
+        r1g1 = roundDao.AddRound(r1g1);
+        
+        Round r2g1 = new Round("1210", "e:2:p:0", g1.getGameId());
+        r2g1 = roundDao.AddRound(r2g1);
+        
+        Round r3g1 = new Round("1310", "e:2:p:0", g1.getGameId());
+        r2g1 = roundDao.AddRound(r3g1);
+        
+        List<Round> roundList = roundDao.GetAllRounds(g1.getGameId());
+        assertEquals(r1g1, roundList.get(0));
+        assertEquals(r2g1, roundList.get(1));
+        assertEquals(r3g1, roundList.get(2));
     }
+
+  
+    @Test
+    public void testGetAllRounds2() {
+        List<Round> list = roundDao.GetAllRounds(999); 
+       
+        
+    }
+    
 }
