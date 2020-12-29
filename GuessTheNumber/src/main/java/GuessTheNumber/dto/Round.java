@@ -13,13 +13,19 @@ import java.util.Objects;
 public class Round {
     
     
-    
-   private int RoundId;
+  private int RoundId;
     public Game GameId;
     private String Guess;
     private LocalDateTime TimeStampOfRound;
     private String Result;
     
+    
+    
+    public Round(int RoundId, String Guess, String Result) {
+        this.RoundId = RoundId;
+        this.Guess = Guess;
+        this.Result = Result;
+    }
     
  
     

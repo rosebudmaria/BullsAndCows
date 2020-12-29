@@ -14,12 +14,14 @@ public interface RoundDao {
     
     public Round AddRound (Round newRound);
     
-    public List<Round> GetRoundByTime (int gameId);
+    //public List<Round> GetRoundByTime (int gameId);
+    
+    public List<Round> GetAllRounds();
     
     public void DeleteRoundById(int roundId);
     
-    public Game GetGameById(int gameId);
+    //public String GetGuess();
     
-    public String GetGuess();
+    public boolean update( Round guess);
     
 }
