@@ -14,10 +14,10 @@ public class Round {
     
     
   private int RoundId;
-    public Game GameId;
-    private String Guess;
-    private LocalDateTime TimeStampOfRound;
-    private String Result;
+  public Game GameId;
+  private String Guess;
+  private LocalDateTime TimeStampOfRound;
+  private String Result;
     
     
     

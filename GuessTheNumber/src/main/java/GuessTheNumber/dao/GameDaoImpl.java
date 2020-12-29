@@ -56,7 +56,7 @@ public class GameDaoImpl implements GameDao{
     }
 
     @Override
-    public void UpdateGame(Game game) {
+    public void UpdateGame(Game playingGame) {
         final String EDIT_GAME = "UPDATE GAME SET StatusOfGame = ? WHERE GameId = ? ;" ;
     }
 
@@ -69,6 +69,8 @@ public class GameDaoImpl implements GameDao{
         final String DELETE_GAME = "DELETE FROM GAME WHERE gameId= ? ; ";
         jdbcTemplate.update(DELETE_GAME, gameId);
     }
+
+
 
     
     private static final class GameMapper implements RowMapper<Game> {

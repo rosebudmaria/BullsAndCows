@@ -83,6 +83,10 @@ public class Game {
         this.StatusOfGame = StatusOfGame;
     }
 
+    public void endGame() {
+      
+    }
+
    
 
 

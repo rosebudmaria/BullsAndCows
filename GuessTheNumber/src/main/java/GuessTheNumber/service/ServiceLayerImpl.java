@@ -26,7 +26,7 @@ public class ServiceLayerImpl implements ServiceLayer {
 
     
    private GameDaoImpl gameDao;
-    private RoundDaoImpl roundDao;
+   private RoundDaoImpl roundDao;
     
      public ServiceLayerImpl(GameDaoImpl gameDao, RoundDaoImpl roundDao) {
         this.gameDao = gameDao;
@@ -52,36 +52,34 @@ public class ServiceLayerImpl implements ServiceLayer {
     
     
     @Override
-    public Round Guess(Round round) throws NoGameException, InvalidUserInput {
+    public Round GetGuess(Round round) throws NoGameException, InvalidUserInput {
         validateInputNumber(round.getGuess());
-        Game playingGame = GetGameById(game.getGameById());
-//        Game playingGame = gameDao.getGameById(round.getGameID());
-//        if (playingGame == null) {
-//            throw new NoSuchGameException("No Game found for Game ID :" + round.getGameID());
-//        }
-        if (playingGame.getStatus() == false) {
-            throw new NoSuchGameException("Game ID :" + playingGame.getGameId() + " has finished, please start a new game");
+        Game playingGame;
+       playingGame = gameDao.GetGameById(round.getRoundId());
+
+        if (playingGame.getStatusOfGame() == false) {
+            throw new NoGameException("Game Id :" + playingGame.getGameId() + " has finished, please start a new game");
         }
-        String[] result = gameLogic(round.getAnswer(), playingGame.getRandomNumber());
+        String[] result = gameLogic(round.getGuess(), playingGame.getFourDigitNumber());
         round.setResult(result[0]);
         if (result[1].equals("4")) {
-            playingGame.endGame();
-            gameDao.updateGame(playingGame);
+             playingGame.setStatusOfGame(false);
+            gameDao.UpdateGame(playingGame);
         }
         round = roundDao.AddRound(round);
         return round;
         
     }
 
-    @Override
-    public List<Round> getRoundByTime(int gameId) throws NoGameException, InvalidUserInput {
-        
-   Game game = GetGameById(gameId);
-        List<Round> rounds = roundDao.GetRoundByTime (game.getGameId());
-        if (rounds.size() == 0) {
-            throw new NoGameException("This game has 0 rounds. It was not played yet");
-        }
-        return rounds;}
+//    @Override
+//    public List<Round> getRoundByTime(int gameId) throws NoGameException, InvalidUserInput {
+//        
+//   Game game = GetGameById(gameId);
+//        List<Round> rounds = roundDao.GetRoundByTime (game.getGameId());
+//        if (rounds.size() == 0) {
+//            throw new NoGameException("This game has 0 rounds. It was not played yet");
+//        }
+//        return rounds;}
 
     @Override
     public List<Game> GetListOfGames() throws NoGameException, InvalidUserInput {
@@ -160,6 +158,7 @@ public class ServiceLayerImpl implements ServiceLayer {
         arr[1] = exactMatch + "";
         return arr;
     }
+
     
 
 }
